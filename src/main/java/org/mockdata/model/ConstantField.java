@@ -1,6 +1,5 @@
 package org.mockdata.model;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -19,7 +18,7 @@ public class ConstantField<T> extends DataField<T> implements DataConstraint<T> 
         this.value = value;
     }
 
-    @NotNull
+    @Nullable
     @Override
     public T generate() {
         return value;
