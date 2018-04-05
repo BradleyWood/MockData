@@ -2,7 +2,7 @@ package org.mockdata.model;
 
 import org.jetbrains.annotations.Nullable;
 
-public abstract class NumericField extends DataField<Number> implements DataConstraint<Number> {
+public abstract class NumericField<T extends Number> extends DataField<T> implements DataConstraint<T> {
 
     @Nullable
     private final Number min;
@@ -13,9 +13,19 @@ public abstract class NumericField extends DataField<Number> implements DataCons
         this(null, null);
     }
 
-    public NumericField(final Number min, final Number max) {
+    public NumericField(@Nullable final Number min, @Nullable final Number max) {
         this.min = min;
         this.max = max;
+    }
+
+    @Nullable
+    public Number getMin() {
+        return min;
+    }
+
+    @Nullable
+    public Number getMax() {
+        return max;
     }
 
     @Override
