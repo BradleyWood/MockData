@@ -31,6 +31,7 @@ public class IntField extends DiscreteNumericField<Integer> {
         if (diff > Integer.MAX_VALUE) { // handle bounds greater than 31 bits
             min += random.nextInt(Integer.MAX_VALUE);
             bound = (int) (diff - Integer.MAX_VALUE - 1);
+            bound--;
         }
 
         int value = min + random.nextInt(bound + 1);
