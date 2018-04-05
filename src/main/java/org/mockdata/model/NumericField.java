@@ -14,6 +14,8 @@ public abstract class NumericField<T extends Number> extends DataField<T> implem
     }
 
     public NumericField(@Nullable final Number min, @Nullable final Number max) {
+        if (min != null && max != null && Double.compare(min.doubleValue(), max.doubleValue()) >= 0)
+            throw new IllegalArgumentException("Constraints error, max: " + max + " is less than min: " + min);
         this.min = min;
         this.max = max;
     }
@@ -31,12 +33,12 @@ public abstract class NumericField<T extends Number> extends DataField<T> implem
     @Override
     public boolean isValid(Number element) {
         if (min != null) {
-            if (Double.compare(min.doubleValue(), element.doubleValue()) >= 0) {
+            if (Double.compare(min.doubleValue(), element.doubleValue()) > 0) {
                 return false;
             }
         }
         if (max != null) {
-            return Double.compare(max.doubleValue(), element.doubleValue()) > 0;
+            return Double.compare(max.doubleValue(), element.doubleValue()) >= 0;
         }
         return true;
     }
