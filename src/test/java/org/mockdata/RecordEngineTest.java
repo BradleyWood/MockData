@@ -3,8 +3,10 @@ package org.mockdata;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockdata.model.DataField;
 import org.mockdata.model.IntField;
 
+import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +22,8 @@ public class RecordEngineTest {
 
     @Before
     public void setup() {
-        recordEngine = new RecordEngine(new IntField(MINA, MAXA), new IntField(MINB, MAXB), new IntField());
+        Header header = new Header("x", "y", "z");
+        recordEngine = new RecordEngine(header, new IntField(MINA, MAXA), new IntField(MINB, MAXB), new IntField());
     }
 
     @Test
@@ -34,5 +37,31 @@ public class RecordEngineTest {
             Assert.assertTrue((Integer) record.get(0) >= MINA && (Integer) record.get(0) <= MAXA);
             Assert.assertTrue((Integer) record.get(1) >= MINB && (Integer) record.get(1) <= MAXB);
         }
+    }
+
+    @Test
+    public void testWriteRecord() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream stream = new PrintStream(baos);
+        int numRecords = 10;
+
+        recordEngine.writeHeader(stream);
+        recordEngine.writeRecords(stream, numRecords);
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(baos.toByteArray())));
+        String header = br.readLine();
+        Assert.assertEquals("x,y,z", header);
+
+
+        List<DataField> fields = recordEngine.getDataFields();
+        for (int i = 0; i < numRecords; i++) {
+            String record = br.readLine();
+            String[] numbers = record.split(",");
+
+            for (int j = 0; j < numbers.length; j++) {
+                Assert.assertTrue(fields.get(j).isValid(Integer.parseInt(numbers[j])));
+            }
+        }
+        Assert.assertNull(br.readLine());
     }
 }
