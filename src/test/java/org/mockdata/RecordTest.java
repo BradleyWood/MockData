@@ -2,9 +2,12 @@ package org.mockdata;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockdata.model.BooleanField;
+import org.mockdata.model.GenderField;
 import org.mockdata.model.IntField;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 public class RecordTest {
 
@@ -40,10 +43,17 @@ public class RecordTest {
     public void testToString() {
         Record record = Record.of(Arrays.asList(new IntField(), new IntField()));
         String str = record.toString();
-        System.out.println(str);
         String[] numbers = str.split(",");
         for (String number : numbers) {
             Integer.parseInt(number);
         }
+    }
+
+    @Test(timeout = 100)
+    public void testGenerate() {
+        RecordEngine xd = new RecordEngine(new IntField(0, 200), new IntField(0, 200), new GenderField(), new BooleanField());
+        Collection<Object[]> data = xd.generate(1000);
+
+        Assert.assertEquals(1000, data.size());
     }
 }
