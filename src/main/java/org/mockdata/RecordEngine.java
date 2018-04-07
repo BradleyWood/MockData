@@ -12,11 +12,11 @@ public class RecordEngine implements Iterable<Object[]> {
     private final List<DataField> dataFields = new ArrayList<>();
     private int modCount = 0;
 
-    public RecordEngine(DataField... dataFields) {
+    public RecordEngine(final DataField... dataFields) {
         this.dataFields.addAll(Arrays.asList(dataFields));
     }
 
-    public RecordEngine(List<DataField> dataFields) {
+    public RecordEngine(final List<DataField> dataFields) {
         this.dataFields.addAll(dataFields);
     }
 
@@ -25,20 +25,20 @@ public class RecordEngine implements Iterable<Object[]> {
         return dataFields;
     }
 
-    public void addDataFields(DataField... dataFields) {
+    public void addDataFields(final DataField... dataFields) {
         addDataFields(Arrays.asList(dataFields));
     }
 
-    public void addDataFields(List<DataField> fields) {
+    public void addDataFields(final List<DataField> fields) {
         modCount += fields.size();
         this.dataFields.addAll(fields);
     }
 
-    public void removeDataFields(DataField... dataFields) {
+    public void removeDataFields(final DataField... dataFields) {
         removeDataFields(Arrays.asList(dataFields));
     }
 
-    public void removeDataFields(List<DataField> fields) {
+    public void removeDataFields(final List<DataField> fields) {
         modCount += fields.size();
         this.dataFields.removeAll(fields);
     }
