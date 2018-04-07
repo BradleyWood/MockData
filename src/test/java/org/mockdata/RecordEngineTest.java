@@ -25,14 +25,14 @@ public class RecordEngineTest {
 
     @Test
     public void streamTest() {
-        List<Object[]> records = recordEngine.stream().limit(1000).collect(Collectors.toList());
+        List<Record> records = recordEngine.stream().limit(1000).collect(Collectors.toList());
 
         Assert.assertEquals(1000, records.size());
 
-        for (Object[] record : records) {
-            Assert.assertEquals(3, record.length);
-            Assert.assertTrue((Integer) record[0] >= MINA && (Integer) record[0] <= MAXA);
-            Assert.assertTrue((Integer) record[1] >= MINB && (Integer) record[1] <= MAXB);
+        for (Record record : records) {
+            Assert.assertEquals(3, record.getValues().length);
+            Assert.assertTrue((Integer) record.get(0) >= MINA && (Integer) record.get(0) <= MAXA);
+            Assert.assertTrue((Integer) record.get(1) >= MINB && (Integer) record.get(1) <= MAXB);
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class RecordEngine implements Iterable<Object[]> {
+public class RecordEngine implements Iterable<Record> {
 
     private final List<DataField> dataFields = new ArrayList<>();
     private int modCount = 0;
@@ -44,21 +44,21 @@ public class RecordEngine implements Iterable<Object[]> {
     }
 
     @Override
-    public Spliterator<Object[]> spliterator() {
+    public Spliterator<Record> spliterator() {
         return Spliterators.spliteratorUnknownSize(iterator(), 0);
     }
 
-    public Stream<Object[]> stream() {
+    public Stream<Record> stream() {
         return StreamSupport.stream(spliterator(), false);
     }
 
     @NotNull
     @Override
-    public Iterator<Object[]> iterator() {
+    public Iterator<Record> iterator() {
         return new RecordItr();
     }
 
-    private class RecordItr implements Iterator<Object[]> {
+    private class RecordItr implements Iterator<Record> {
 
         private final int expectedModCount;
 
@@ -72,15 +72,11 @@ public class RecordEngine implements Iterable<Object[]> {
         }
 
         @Override
-        public Object[] next() {
+        public Record next() {
             if (expectedModCount != modCount)
                 throw new ConcurrentModificationException("Record model modified while iterating");
 
-            Object[] data = new Object[dataFields.size()];
-            for (int i = 0; i < data.length; i++) {
-                data[i] = dataFields.get(i).generate();
-            }
-            return data;
+            return Record.of(dataFields);
         }
     }
 }
