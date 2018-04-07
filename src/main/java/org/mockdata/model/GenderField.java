@@ -16,7 +16,7 @@ public class GenderField extends DataField<GenderField.GENDER> {
 
     @Override
     public boolean isValid(GENDER element) {
-        return true;
+        return element != null;
     }
 
     enum GENDER {
