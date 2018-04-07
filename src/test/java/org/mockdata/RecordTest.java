@@ -49,7 +49,7 @@ public class RecordTest {
         }
     }
 
-    @Test(timeout = 100)
+    @Test
     public void testGenerate() {
         RecordEngine xd = new RecordEngine(new IntField(0, 200), new IntField(0, 200), new GenderField(), new BooleanField());
         Collection<Object[]> data = xd.generate(1000);
