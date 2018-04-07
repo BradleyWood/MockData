@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mockdata.model.DataField;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -50,6 +51,10 @@ public class RecordEngine implements Iterable<Record> {
 
     public Stream<Record> stream() {
         return StreamSupport.stream(spliterator(), false);
+    }
+
+    public Collection<Object[]> generate(int numRecords) {
+        return stream().limit(numRecords).map(Record::getValues).collect(Collectors.toList());
     }
 
     @NotNull
