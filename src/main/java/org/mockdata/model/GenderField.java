@@ -19,7 +19,13 @@ public class GenderField extends DataField<GenderField.GENDER> {
         return element != null;
     }
 
-    enum GENDER {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return o != null && getClass() == o.getClass();
+    }
+
+    public enum GENDER {
         Male,
         Female
     }

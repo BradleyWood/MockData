@@ -18,4 +18,11 @@ public class BooleanField extends DataField<Boolean> implements Verifiable<Boole
     public boolean isValid(Boolean element) {
         return element != null;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return o != null && getClass() == o.getClass();
+    }
+
 }
