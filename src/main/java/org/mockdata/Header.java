@@ -55,19 +55,33 @@ public class Header {
         return size() == 0;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
+    public String[] getColumnNames() {
+        String[] columnNames = new String[map.size()];
 
         int i = 0;
         for (int j = 0; j < size(); j++) {
             for (String name : map.keySet()) {
                 if (map.get(name) == i) {
-                    builder.append(name);
+                    columnNames[i] = name;
                     i++;
-                    if (i < size()) {
-                        builder.append(",");
-                    }
+                }
+            }
+        }
+        return columnNames;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        int i = 0;
+
+        for (String name : getColumnNames()) {
+            if (map.get(name) == i) {
+                builder.append(name);
+                i++;
+                if (i < size()) {
+                    builder.append(",");
                 }
             }
         }
