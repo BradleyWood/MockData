@@ -2,7 +2,7 @@ package org.mockdata.model;
 
 import org.jetbrains.annotations.Nullable;
 
-public abstract class NumericField<T extends Number> extends DataField<T> implements DataConstraint<T> {
+public abstract class NumericField<T extends Number> extends DataField<T> {
 
     @Nullable
     private final Number min;

@@ -9,7 +9,7 @@ import java.util.Objects;
  *
  * @param <T> The element type
  */
-public class ConstantField<T> extends DataField<T> implements DataConstraint<T> {
+public class ConstantField<T> extends DataField<T> {
 
     @Nullable
     private final T value;

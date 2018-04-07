@@ -1,6 +1,6 @@
 package org.mockdata.model;
 
-public abstract class ContinueousNumericField<T extends Number> extends NumericField<T> implements DataConstraint<T> {
+public abstract class ContinueousNumericField<T extends Number> extends NumericField<T> {
 
     @Override
     public boolean isValid(Number element) {

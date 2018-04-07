@@ -1,6 +1,6 @@
 package org.mockdata.model;
 
-public interface DataConstraint<E> {
+public interface Verifiable<E> {
 
     boolean isValid(E element);
 }
