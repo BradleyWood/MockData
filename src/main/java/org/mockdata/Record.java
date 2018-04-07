@@ -50,22 +50,11 @@ public class Record {
         StringBuilder builder = new StringBuilder();
 
         int i = 0;
-        if (header.size() < values.length) {
-            for (Object val : values) {
-                builder.append(val);
-                i++;
-                if (i < values.length) {
-                    builder.append(",");
-                }
-            }
-        } else {
-            for (String name : header.getColumnNames()) {
-                Object val = get(name);
-                builder.append(val);
-                i++;
-                if (i < values.length) {
-                    builder.append(",");
-                }
+        for (Object val : values) {
+            builder.append(val);
+            i++;
+            if (i < values.length) {
+                builder.append(",");
             }
         }
         return builder.toString();
