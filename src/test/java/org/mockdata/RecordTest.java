@@ -35,4 +35,15 @@ public class RecordTest {
         Assert.assertEquals(val, record.getOrDefault("x", -5));
         Assert.assertEquals(0, record.getOrDefault("z", 0));
     }
+
+    @Test
+    public void testToString() {
+        Record record = Record.of(Arrays.asList(new IntField(), new IntField()));
+        String str = record.toString();
+        System.out.println(str);
+        String[] numbers = str.split(",");
+        for (String number : numbers) {
+            Integer.parseInt(number);
+        }
+    }
 }
