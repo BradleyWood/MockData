@@ -28,4 +28,17 @@ public class ConstantField<T> extends DataField<T> implements DataConstraint<T> 
     public boolean isValid(T element) {
         return Objects.equals(value, element);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ConstantField<?> that = (ConstantField<?>) o;
+        return Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
 }

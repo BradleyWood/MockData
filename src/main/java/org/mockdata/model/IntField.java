@@ -2,6 +2,7 @@ package org.mockdata.model;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class IntField extends DiscreteNumericField<Integer> {
@@ -40,5 +41,19 @@ public class IntField extends DiscreteNumericField<Integer> {
             throw new RuntimeException("Invalid integer generated: " + value + " acceptable range [" + min + "," + max + "]");
 
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IntField intField = (IntField) o;
+        return Objects.equals(getMin(), intField.getMin())
+                && Objects.equals(getMax(), intField.getMax());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMin(), getMax());
     }
 }

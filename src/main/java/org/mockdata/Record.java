@@ -2,7 +2,9 @@ package org.mockdata;
 
 import org.mockdata.model.DataField;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Record {
 
@@ -67,6 +69,22 @@ public class Record {
             }
         }
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Record record = (Record) o;
+        return Objects.equals(header, record.header) &&
+                Arrays.equals(values, record.values);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(header);
+        result = 31 * result + Arrays.hashCode(values);
+        return result;
     }
 
     public static Record of(final List<DataField> dataFields) {

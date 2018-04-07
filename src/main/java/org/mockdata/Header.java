@@ -1,6 +1,7 @@
 package org.mockdata;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Header {
 
@@ -87,5 +88,18 @@ public class Header {
         }
 
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Header header = (Header) o;
+        return Objects.equals(map, header.map);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(map);
     }
 }
