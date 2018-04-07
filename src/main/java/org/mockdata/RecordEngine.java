@@ -3,6 +3,9 @@ package org.mockdata;
 import org.jetbrains.annotations.NotNull;
 import org.mockdata.model.DataField;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,13 +14,23 @@ import java.util.stream.StreamSupport;
 public class RecordEngine implements Iterable<Record> {
 
     private final List<DataField> dataFields = new ArrayList<>();
+    private final Header header;
     private int modCount = 0;
 
     public RecordEngine(final DataField... dataFields) {
-        this.dataFields.addAll(Arrays.asList(dataFields));
+        this(Arrays.asList(dataFields));
+    }
+
+    public RecordEngine(final Header header, final DataField... dataFields) {
+        this(header, Arrays.asList(dataFields));
     }
 
     public RecordEngine(final List<DataField> dataFields) {
+        this(new Header(), dataFields);
+    }
+
+    public RecordEngine(final Header header, final List<DataField> dataFields) {
+        this.header = header;
         this.dataFields.addAll(dataFields);
     }
 
@@ -53,8 +66,31 @@ public class RecordEngine implements Iterable<Record> {
         return StreamSupport.stream(spliterator(), false);
     }
 
-    public Collection<Object[]> generate(int numRecords) {
+    public Collection<Object[]> generate(final int numRecords) {
         return stream().limit(numRecords).map(Record::getValues).collect(Collectors.toList());
+    }
+
+    public void writeCsv(final String path, final int numRecords) throws FileNotFoundException {
+        writeCsv(path, true, numRecords);
+    }
+
+    public void writeCsv(final String path, final boolean header, final int numRecords) throws FileNotFoundException {
+        PrintStream ps = new PrintStream(new FileOutputStream(path));
+        if (header) {
+            writeHeader(ps);
+        }
+        writeRecords(ps, numRecords);
+        ps.close();
+    }
+
+    public void writeHeader(final PrintStream stream) {
+        if (header != null && !header.isEmpty()) {
+            stream.println(header);
+        }
+    }
+
+    public void writeRecords(final PrintStream stream, final int numRecords) {
+        stream().limit(numRecords).forEach(stream::println);
     }
 
     @NotNull
@@ -81,7 +117,7 @@ public class RecordEngine implements Iterable<Record> {
             if (expectedModCount != modCount)
                 throw new ConcurrentModificationException("Record model modified while iterating");
 
-            return Record.of(dataFields);
+            return Record.of(header, dataFields);
         }
     }
 }
