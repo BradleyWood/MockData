@@ -1,34 +1,54 @@
 package org.mockdata;
 
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.HashMap;
 
 public class Header {
 
-    private final LinkedList<String> names = new LinkedList<>();
+    private final HashMap<String, Integer> map = new HashMap<>();
 
     public Header(final String... names) {
-        this.names.addAll(Arrays.asList(names));
+        for (String name : names) {
+            addColumn(name);
+        }
     }
 
     public void addColumn(final String name) {
-        names.addLast(name);
+        if (map.containsKey(name))
+            throw new IllegalArgumentException("Duplicate column name: " + name);
+        map.put(name, size());
     }
 
     public void removeColumn(final String name) {
-        names.remove(name);
+        Integer idx = map.remove(name);
+        if (idx != null) {
+            for (String key : map.keySet()) {
+                int v = map.get(key);
+                if (v > idx) {
+                    map.put(key, v - 1);
+                }
+            }
+        }
     }
 
-    public void addColumn(final int index, final String name) {
-        names.add(index, name);
+    public void addColumn(final int idx, final String name) {
+        if (map.containsKey(name))
+            throw new IllegalArgumentException("Duplicate column name: " + name);
+
+        for (String key : map.keySet()) {
+            int v = map.get(key);
+            if (v >= idx) {
+                map.put(key, v + 1);
+            }
+        }
+        map.put(name, idx);
     }
 
     public int getIndex(final String name) {
-        return names.indexOf(name);
+        return map.getOrDefault(name, -1);
     }
 
     public int size() {
-        return names.size();
+        return map.size();
     }
 
     public boolean isEmpty() {
@@ -40,12 +60,15 @@ public class Header {
         StringBuilder builder = new StringBuilder();
 
         int i = 0;
-
-        for (String name : names) {
-            builder.append(name);
-            i++;
-            if (i < size()) {
-                builder.append(",");
+        for (int j = 0; j < size(); j++) {
+            for (String name : map.keySet()) {
+                if (map.get(name) == i) {
+                    builder.append(name);
+                    i++;
+                    if (i < size()) {
+                        builder.append(",");
+                    }
+                }
             }
         }
 
