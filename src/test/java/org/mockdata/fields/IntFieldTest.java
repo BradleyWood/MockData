@@ -1,4 +1,4 @@
-package org.mockdata.model;
+package org.mockdata.fields;
 
 
 import org.junit.Assert;

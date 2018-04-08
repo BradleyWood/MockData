@@ -1,4 +1,4 @@
-package org.mockdata.model;
+package org.mockdata.fields;
 
 public abstract class ContinueousNumericField<T extends Number> extends NumericField<T> {
 

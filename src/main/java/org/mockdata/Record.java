@@ -1,6 +1,6 @@
 package org.mockdata;
 
-import org.mockdata.model.DataField;
+import org.mockdata.fields.DataField;
 
 import java.util.Arrays;
 import java.util.List;

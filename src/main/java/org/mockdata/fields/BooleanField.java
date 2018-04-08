@@ -1,21 +1,21 @@
-package org.mockdata.model;
+package org.mockdata.fields;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class GenderField extends DataField<GenderField.GENDER> {
+public class BooleanField extends DataField<Boolean> implements Verifiable<Boolean> {
 
     private final Random random = new Random();
 
     @NotNull
     @Override
-    public GENDER generate() {
-        return random.nextBoolean() ? GENDER.Male : GENDER.Female;
+    public Boolean generate() {
+        return random.nextBoolean();
     }
 
     @Override
-    public boolean isValid(GENDER element) {
+    public boolean isValid(Boolean element) {
         return element != null;
     }
 
@@ -25,8 +25,4 @@ public class GenderField extends DataField<GenderField.GENDER> {
         return o != null && getClass() == o.getClass();
     }
 
-    public enum GENDER {
-        Male,
-        Female
-    }
 }

@@ -1,7 +1,7 @@
 package org.mockdata;
 
 import org.jetbrains.annotations.NotNull;
-import org.mockdata.model.DataField;
+import org.mockdata.fields.DataField;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -115,7 +115,7 @@ public class RecordEngine implements Iterable<Record> {
         @Override
         public Record next() {
             if (expectedModCount != modCount)
-                throw new ConcurrentModificationException("Record model modified while iterating");
+                throw new ConcurrentModificationException("Record fields modified while iterating");
 
             return Record.of(header, dataFields);
         }

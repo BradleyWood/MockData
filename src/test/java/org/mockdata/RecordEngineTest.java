@@ -3,8 +3,8 @@ package org.mockdata;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockdata.model.DataField;
-import org.mockdata.model.IntField;
+import org.mockdata.fields.DataField;
+import org.mockdata.fields.IntField;
 
 import java.io.*;
 import java.util.List;

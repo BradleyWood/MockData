@@ -2,9 +2,9 @@ package org.mockdata;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockdata.model.BooleanField;
-import org.mockdata.model.GenderField;
-import org.mockdata.model.IntField;
+import org.mockdata.fields.BooleanField;
+import org.mockdata.fields.GenderField;
+import org.mockdata.fields.IntField;
 
 import java.util.Arrays;
 import java.util.Collection;
