@@ -8,7 +8,7 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public abstract class DataField<T> implements Verifiable<T>, Iterable<T> {
+public abstract class DataField<T> implements Verifiable, Iterable<T> {
 
     @NotNull
     public abstract T generate();

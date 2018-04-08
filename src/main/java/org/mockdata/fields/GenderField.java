@@ -15,8 +15,8 @@ public class GenderField extends DataField<GenderField.GENDER> {
     }
 
     @Override
-    public boolean isValid(GENDER element) {
-        return element != null;
+    public boolean isValid(Object element) {
+        return element instanceof GENDER;
     }
 
     @Override

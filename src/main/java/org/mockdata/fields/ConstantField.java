@@ -25,7 +25,7 @@ public class ConstantField<T> extends DataField<T> {
     }
 
     @Override
-    public boolean isValid(T element) {
+    public boolean isValid(Object element) {
         return Objects.equals(value, element);
     }
 

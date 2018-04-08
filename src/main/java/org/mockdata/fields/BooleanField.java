@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class BooleanField extends DataField<Boolean> implements Verifiable<Boolean> {
+public class BooleanField extends DataField<Boolean> {
 
     private final Random random = new Random();
 
@@ -15,8 +15,8 @@ public class BooleanField extends DataField<Boolean> implements Verifiable<Boole
     }
 
     @Override
-    public boolean isValid(Boolean element) {
-        return element != null;
+    public boolean isValid(Object element) {
+        return element instanceof Boolean;
     }
 
     @Override
