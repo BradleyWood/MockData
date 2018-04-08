@@ -2,20 +2,20 @@ package org.mockdata.model;
 
 import org.jetbrains.annotations.NotNull;
 
-public class RowNumber extends IntField {
+public class RowNumberField extends IntField {
 
     private int start;
     private int incBy;
 
-    public RowNumber() {
+    public RowNumberField() {
         this(0);
     }
 
-    public RowNumber(final int start) {
+    public RowNumberField(final int start) {
         this(start, 1);
     }
 
-    public RowNumber(final int start, final int incBy) {
+    public RowNumberField(final int start, final int incBy) {
         super(start, Integer.MAX_VALUE);
         this.start = start;
         this.incBy = incBy;
@@ -24,6 +24,8 @@ public class RowNumber extends IntField {
     @NotNull
     @Override
     public Integer generate() {
-        return start += incBy;
+        int row = start;
+        start += incBy;
+        return row;
     }
 }
