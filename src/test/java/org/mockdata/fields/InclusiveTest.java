@@ -11,7 +11,7 @@ import java.util.List;
 @RunWith(Parameterized.class)
 public class InclusiveTest {
 
-    private IntField field;
+    private final IntField field;
 
     public InclusiveTest(int min, int max) {
         field = new IntField(min, max);
