@@ -3,6 +3,7 @@ package org.mockdata.util;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.mockdata.data.Gender;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,6 +44,38 @@ public class DataUtilities {
         return records.stream().map(r -> Double.parseDouble(r.get(2))).collect(Collectors.toList());
     }
 
+    /**
+     * A best guess of Gender for the given name
+     *
+     * @param name The first name
+     * @return Best Guess Gender or null if the name is not present in the database
+     */
+    public static Gender getGender(final String name) {
+        try {
+            if (maleFirstNames == null) {
+                loadMaleNames();
+            }
+            if (femaleFirstNames == null) {
+                loadFemaleNames();
+            }
+            int maleIdx = maleFirstNames.indexOf(name.toUpperCase());
+            int femaleIdx = femaleFirstNames.indexOf(name.toUpperCase());
+
+            if (maleIdx >= 0 && femaleIdx >= 0) {
+                double maleP = mfnPercentiles.get(maleIdx);
+                double femaleP = ffnPercentiles.get(femaleIdx);
+                return maleP < femaleP ? Gender.Male : Gender.Female;
+            } else if (maleIdx >= 0) {
+                return Gender.Male;
+            } else if (femaleIdx >= 0) {
+                return Gender.Female;
+            }
+        } catch (Exception e) {
+            System.err.println("Error: Cannot load names");
+        }
+        return null;
+    }
+
     private static String selectName(final List<String> names, final List<Double> percentiles) {
         final double key = random.nextDouble() * percentiles.get(percentiles.size() - 1);
         final int index = searchName(percentiles, key);
@@ -59,16 +92,24 @@ public class DataUtilities {
         return new String(letters);
     }
 
+    private static void loadMaleNames() throws IOException {
+        final List<CSVRecord> records = readCsv(MALE_FIRST_NAMES);
+        maleFirstNames = getNames(records);
+        mfnPercentiles = getPercentiles(records);
+    }
+
+    private static void loadFemaleNames() throws IOException {
+        final List<CSVRecord> records = readCsv(FEMALE_FIRST_NAMES);
+        femaleFirstNames = getNames(records);
+        ffnPercentiles = getPercentiles(records);
+    }
+
     public static String randomFirstName(final boolean male) {
         try {
             if (male && maleFirstNames == null) {
-                final List<CSVRecord> records = readCsv(MALE_FIRST_NAMES);
-                maleFirstNames = getNames(records);
-                mfnPercentiles = getPercentiles(records);
+                loadMaleNames();
             } else if (!male && femaleFirstNames == null) {
-                final List<CSVRecord> records = readCsv(FEMALE_FIRST_NAMES);
-                femaleFirstNames = getNames(records);
-                ffnPercentiles = getPercentiles(records);
+                loadFemaleNames();
             }
         } catch (IOException e) {
             System.err.println("Error: Cannot find first names");
