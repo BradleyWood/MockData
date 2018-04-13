@@ -2,9 +2,9 @@ package org.mockdata.fields;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -12,6 +12,30 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
 
     @NotNull
     public abstract T generate();
+
+    /**
+     * Generate the field with the given data dependencies
+     *
+     * @param dependencies Data dependencies from previously generated fields in the same row
+     * @return The next data entry
+     */
+    @NotNull
+    public final T generate(@NotNull final Map<Class<? extends DataField>, Object> dependencies) throws IllegalAccessException {
+        final Class<?> klass = getClass();
+
+        final List<Field> dependentFields = Arrays.stream(klass.getDeclaredFields())
+                .filter(f -> f.getDeclaredAnnotation(DependentField.class) != null)
+                .collect(Collectors.toList());
+
+        for (Field field : dependentFields) {
+            final DependentField depAnno = field.getAnnotation(DependentField.class);
+            final Object value = dependencies.get(depAnno.dependentOn());
+            field.setAccessible(true);
+            field.set(this, value);
+        }
+
+        return generate();
+    }
 
     public final Stream<T> stream() {
         return StreamSupport.stream(spliterator(), false);
