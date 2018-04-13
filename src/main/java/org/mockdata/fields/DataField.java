@@ -10,6 +10,8 @@ import java.util.stream.StreamSupport;
 
 public abstract class DataField<T> implements Verifiable, Iterable<T> {
 
+    private List<Field> dependentFields;
+
     @NotNull
     public abstract T generate();
 
@@ -21,11 +23,11 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
      */
     @NotNull
     public final T generate(@NotNull final Map<Class<? extends DataField>, Object> dependencies) throws IllegalAccessException {
-        final Class<?> klass = getClass();
-
-        final List<Field> dependentFields = Arrays.stream(klass.getDeclaredFields())
-                .filter(f -> f.getDeclaredAnnotation(DependentField.class) != null)
-                .collect(Collectors.toList());
+        if (dependentFields == null) {
+            dependentFields = Arrays.stream(getClass().getDeclaredFields())
+                    .filter(f -> f.getDeclaredAnnotation(DependentField.class) != null)
+                    .collect(Collectors.toList());
+        }
 
         for (Field field : dependentFields) {
             final DependentField depAnno = field.getAnnotation(DependentField.class);
