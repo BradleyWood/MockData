@@ -2,10 +2,7 @@ package org.mockdata;
 
 import org.mockdata.fields.DataField;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Record {
 
@@ -82,7 +79,7 @@ public class Record {
     }
 
     public static Record of(final Header header, final List<DataField> dataFields) {
-        final HashMap<Class<? extends DataField>, Object> dataDependencies = new HashMap<>();
+        final HashMap<Class<? extends DataField>, List<Object>> dataDependencies = new HashMap<>();
         final Object[] values = new Object[dataFields.size()];
         for (int i = 0; i < values.length; i++) {
             DataField field = dataFields.get(i);
@@ -91,7 +88,10 @@ public class Record {
             } catch (IllegalAccessException e) {
                 values[i] = field.generate();
             }
-            dataDependencies.put(field.getClass(), values[i]);
+            final List<Object> data = dataDependencies.getOrDefault(field.getClass(), new ArrayList<>());
+            data.add(values[i]);
+
+            dataDependencies.put(field.getClass(), data);
         }
         return new Record(header, values);
     }
