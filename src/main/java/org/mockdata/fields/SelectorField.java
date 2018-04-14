@@ -11,8 +11,6 @@ import java.util.*;
  */
 public class SelectorField<T> extends DataField<T> {
 
-    private final Random random = new Random();
-
     private List<T> set;
 
     public SelectorField(final T[] set) {

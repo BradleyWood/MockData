@@ -2,11 +2,7 @@ package org.mockdata.fields;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 public class BooleanField extends DataField<Boolean> {
-
-    private final Random random = new Random();
 
     @NotNull
     @Override

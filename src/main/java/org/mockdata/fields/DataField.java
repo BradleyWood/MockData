@@ -12,6 +12,8 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
 
     private List<Field> dependentFields;
 
+    protected final Random random = new Random();
+
     @NotNull
     public abstract T generate();
 

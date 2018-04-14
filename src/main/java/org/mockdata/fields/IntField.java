@@ -3,11 +3,8 @@ package org.mockdata.fields;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-import java.util.Random;
 
 public class IntField extends DiscreteNumericField<Integer> {
-
-    private Random random = new Random();
 
     public IntField() {
         this(Integer.MIN_VALUE, Integer.MAX_VALUE);

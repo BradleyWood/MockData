@@ -5,11 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mockdata.data.Gender;
 import org.mockdata.util.DataUtilities;
 
-import java.util.Random;
-
 public class FirstNameField extends DataField<String> {
-
-    private final Random random = new Random();
 
     @Nullable
     @DependentField(dependentOn = GenderField.class)

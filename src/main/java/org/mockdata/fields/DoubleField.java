@@ -1,16 +1,11 @@
 package org.mockdata.fields;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class DoubleField extends ContinuousNumericField<Double> {
 
     public static final double DEFAULT_MIN = 0D;
     public static final double DEFAULT_MAX = 1D;
-
-    private final Random random = new Random();
 
     public DoubleField() {
         this(DEFAULT_MIN, DEFAULT_MAX);
