@@ -16,7 +16,7 @@ public class GenderField extends DataField<Gender> {
     @NotNull
     @Override
     public Gender generate() {
-        if (firstName != null && firstName.isEmpty()) {
+        if (firstName != null && !firstName.isEmpty()) {
             Gender gender = DataUtilities.getGender(firstName);
             if (gender != null)
                 return gender;
