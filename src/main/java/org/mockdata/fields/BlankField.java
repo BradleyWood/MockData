@@ -11,7 +11,7 @@ public class BlankField extends DataField<String> {
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         return "".equals(element);
     }
 }

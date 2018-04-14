@@ -13,7 +13,7 @@ public class GenderField extends DataField<Gender> {
     @Override
     public Gender generate() {
         if (firstName != null && !firstName.isEmpty()) {
-            Gender gender = DataUtilities.getGender(firstName);
+            final Gender gender = DataUtilities.getGender(firstName);
             if (gender != null)
                 return gender;
         }
@@ -22,7 +22,7 @@ public class GenderField extends DataField<Gender> {
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         return element instanceof Gender;
     }
 

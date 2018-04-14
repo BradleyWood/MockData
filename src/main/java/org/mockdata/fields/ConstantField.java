@@ -14,7 +14,7 @@ public class ConstantField<T> extends DataField<T> {
     @Nullable
     private final T value;
 
-    public ConstantField(@Nullable T value) {
+    public ConstantField(@Nullable final T value) {
         this.value = value;
     }
 
@@ -25,15 +25,16 @@ public class ConstantField<T> extends DataField<T> {
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         return Objects.equals(value, element);
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ConstantField<?> that = (ConstantField<?>) o;
+
+        final ConstantField<?> that = (ConstantField<?>) o;
         return Objects.equals(value, that.value);
     }
 

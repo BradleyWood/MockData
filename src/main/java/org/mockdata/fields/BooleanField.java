@@ -11,12 +11,12 @@ public class BooleanField extends DataField<Boolean> {
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         return element instanceof Boolean;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         return o != null && getClass() == o.getClass();
     }

@@ -18,14 +18,14 @@ public class DoubleField extends ContinuousNumericField<Double> {
     @NotNull
     @Override
     public Double generate() {
-        double min = getMin().doubleValue();
-        double max = getMax().doubleValue();
+        final double min = getMin().doubleValue();
+        final double max = getMax().doubleValue();
 
         return min + (max - min) * random.nextDouble();
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         if (!(element instanceof Double))
             return false;
         return super.isValid(element);

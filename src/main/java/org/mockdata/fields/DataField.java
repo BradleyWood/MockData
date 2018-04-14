@@ -31,7 +31,7 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
                     .collect(Collectors.toList());
         }
 
-        for (Field field : dependentFields) {
+        for (final Field field : dependentFields) {
             final DependentField depAnno = field.getAnnotation(DependentField.class);
             final List<Object> value = dependencies.get(depAnno.dependentOn());
             field.setAccessible(true);

@@ -10,7 +10,7 @@ public class IntField extends DiscreteNumericField<Integer> {
         this(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
-    public IntField(Integer min, Integer max) {
+    public IntField(final Integer min, final Integer max) {
         super(min, max);
     }
 
@@ -41,7 +41,7 @@ public class IntField extends DiscreteNumericField<Integer> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IntField intField = (IntField) o;

@@ -29,7 +29,7 @@ public class EmailField extends DataField<String> {
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         if (!(element instanceof String))
             return false;
 

@@ -81,7 +81,7 @@ public class RecordEngine implements Iterable<Record> {
     }
 
     public void writeCsv(final String path, final boolean header, final int numRecords, final CSVFormat format) throws IOException {
-        PrintStream ps = new PrintStream(new FileOutputStream(path));
+        final PrintStream ps = new PrintStream(new FileOutputStream(path));
         if (header) {
             writeHeader(ps);
         }
@@ -100,12 +100,12 @@ public class RecordEngine implements Iterable<Record> {
     }
 
     public void writeRecords(final PrintStream stream, final int numRecords, CSVFormat format) throws IOException {
-        CSVPrinter printer = new CSVPrinter(stream, format);
+        final CSVPrinter printer = new CSVPrinter(stream, format);
         writeRecords(printer, numRecords);
     }
 
     public void writeRecords(final CSVPrinter printer, final int numRecords) throws IOException {
-        for (Record record : stream().limit(numRecords).collect(Collectors.toList())) {
+        for (final Record record : stream().limit(numRecords).collect(Collectors.toList())) {
             printer.printRecord(record.getValues());
         }
     }

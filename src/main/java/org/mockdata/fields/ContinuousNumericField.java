@@ -13,7 +13,7 @@ public abstract class ContinuousNumericField<T extends Number> extends NumericFi
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         return super.isValid(element);
     }
 }

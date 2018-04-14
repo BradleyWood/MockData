@@ -29,7 +29,8 @@ public class Record {
     }
 
     public Object get(final String name) {
-        int idx = header.getIndex(name);
+        final int idx = header.getIndex(name);
+
         if (idx != -1) {
             if (idx >= values.length)
                 throw new IndexOutOfBoundsException("Column name out of bounds: name=\"" + name + "\" index=" + idx);
@@ -39,13 +40,13 @@ public class Record {
     }
 
     public Object getOrDefault(final String name, Object defaultValue) {
-        Object obj = get(name);
+        final Object obj = get(name);
         return obj != null ? obj : defaultValue;
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
 
         int i = 0;
         for (Object val : values) {
@@ -62,7 +63,9 @@ public class Record {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Record record = (Record) o;
+
+        final Record record = (Record) o;
+
         return Objects.equals(header, record.header) &&
                 Arrays.equals(values, record.values);
     }

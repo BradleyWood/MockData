@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RowNumberField extends IntField {
 
-    private int start;
+    private int val;
     private int incBy;
 
     public RowNumberField() {
@@ -17,15 +17,15 @@ public class RowNumberField extends IntField {
 
     public RowNumberField(final int start, final int incBy) {
         super(start, Integer.MAX_VALUE);
-        this.start = start;
+        this.val = start;
         this.incBy = incBy;
     }
 
     @NotNull
     @Override
     public Integer generate() {
-        int row = start;
-        start += incBy;
+        int row = val;
+        val += incBy;
         return row;
     }
 }

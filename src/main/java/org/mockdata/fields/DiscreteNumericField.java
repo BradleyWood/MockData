@@ -15,11 +15,11 @@ public abstract class DiscreteNumericField<T extends Number> extends NumericFiel
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         if (!super.isValid(element) || !(element instanceof Number) || (element instanceof Float || element instanceof Double) || (element instanceof BigDecimal))
             return false;
 
-        Number num = (Number) element;
+        final Number num = (Number) element;
 
         if (element instanceof Integer)
             return num.longValue() <= Integer.MAX_VALUE && num.longValue() >= Integer.MIN_VALUE;

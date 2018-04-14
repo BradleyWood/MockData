@@ -2,5 +2,5 @@ package org.mockdata.fields;
 
 public interface Verifiable {
 
-    boolean isValid(Object element);
+    boolean isValid(final Object element);
 }

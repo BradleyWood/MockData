@@ -31,15 +31,18 @@ public abstract class NumericField<T extends Number> extends DataField<T> {
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid(final Object element) {
         if (!(element instanceof Number))
             return false;
-        Number data = (Number) element;
+
+        final Number data = (Number) element;
+
         if (min != null) {
             if (Double.compare(min.doubleValue(), data.doubleValue()) > 0) {
                 return false;
             }
         }
+
         if (max != null) {
             return Double.compare(max.doubleValue(), data.doubleValue()) >= 0;
         }

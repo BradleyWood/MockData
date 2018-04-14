@@ -8,7 +8,7 @@ public class Header {
     private final HashMap<String, Integer> map = new HashMap<>();
 
     public Header(final String... names) {
-        for (String name : names) {
+        for (final String name : names) {
             addColumn(name);
         }
     }
@@ -20,7 +20,8 @@ public class Header {
     }
 
     public void removeColumn(final String name) {
-        Integer idx = map.remove(name);
+        final Integer idx = map.remove(name);
+
         if (idx != null) {
             for (String key : map.keySet()) {
                 int v = map.get(key);
@@ -35,7 +36,7 @@ public class Header {
         if (map.containsKey(name))
             throw new IllegalArgumentException("Duplicate column name: " + name);
 
-        for (String key : map.keySet()) {
+        for (final String key : map.keySet()) {
             int v = map.get(key);
             if (v >= idx) {
                 map.put(key, v + 1);
@@ -57,11 +58,11 @@ public class Header {
     }
 
     public String[] getColumnNames() {
-        String[] columnNames = new String[map.size()];
+        final String[] columnNames = new String[map.size()];
 
         int i = 0;
         for (int j = 0; j < size(); j++) {
-            for (String name : map.keySet()) {
+            for (final String name : map.keySet()) {
                 if (map.get(name) == i) {
                     columnNames[i] = name;
                     i++;
@@ -73,7 +74,7 @@ public class Header {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
 
         int i = 0;
 
@@ -91,10 +92,12 @@ public class Header {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Header header = (Header) o;
+
+        final Header header = (Header) o;
+
         return Objects.equals(map, header.map);
     }
 
