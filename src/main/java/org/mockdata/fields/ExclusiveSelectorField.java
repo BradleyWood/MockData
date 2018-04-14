@@ -33,6 +33,9 @@ public class ExclusiveSelectorField<T> extends DataField<T> {
         if (exclude != null)
             data.removeAll(exclude);
 
+        if (data.isEmpty())
+            throw new IllegalArgumentException("No unique values");
+
         return data.get(random.nextInt(data.size()));
     }
 
