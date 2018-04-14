@@ -85,7 +85,7 @@ public class DataUtilities {
             System.err.println("Error: Cannot load last names");
             return false;
         }
-        return lastNames.contains(name);
+        return lastNames.contains(name.toUpperCase());
     }
 
     private static String selectName(final List<String> names, final List<Double> percentiles) {
