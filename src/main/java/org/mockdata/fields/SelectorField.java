@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class SelectorField<T> extends DataField<T> {
 
-    private List<T> set;
+    protected List<T> set;
 
     public SelectorField(final T[] set) {
         this(Arrays.asList(set));
@@ -20,7 +20,7 @@ public class SelectorField<T> extends DataField<T> {
     public SelectorField(final List<T> set) {
         if (set.isEmpty())
             throw new IllegalArgumentException("Cannot select field from empty set");
-        this.set = set;
+        this.set = new LinkedList<>(set);
     }
 
     @NotNull
