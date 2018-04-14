@@ -76,6 +76,18 @@ public class DataUtilities {
         return null;
     }
 
+    public static boolean isLastName(final String name) {
+        try {
+            if (lastNames == null) {
+                loadLastNames();
+            }
+        } catch (Exception e) {
+            System.err.println("Error: Cannot load last names");
+            return false;
+        }
+        return lastNames.contains(name);
+    }
+
     private static String selectName(final List<String> names, final List<Double> percentiles) {
         final double key = random.nextDouble() * percentiles.get(percentiles.size() - 1);
         final int index = searchName(percentiles, key);
@@ -104,6 +116,12 @@ public class DataUtilities {
         ffnPercentiles = getPercentiles(records);
     }
 
+    private static void loadLastNames() throws IOException {
+        final List<CSVRecord> records = readCsv(LAST_NAMES);
+        lastNames = getNames(records);
+        lnPercentiles = getPercentiles(records);
+    }
+
     public static String randomFirstName(final boolean male) {
         try {
             if (male && maleFirstNames == null) {
@@ -130,9 +148,7 @@ public class DataUtilities {
     public static String randomLastName() {
         try {
             if (lastNames == null) {
-                final List<CSVRecord> records = readCsv(LAST_NAMES);
-                lastNames = getNames(records);
-                lnPercentiles = getPercentiles(records);
+                loadLastNames();
             }
         } catch (Exception e) {
             System.err.println("Error: Cannot find last names");
