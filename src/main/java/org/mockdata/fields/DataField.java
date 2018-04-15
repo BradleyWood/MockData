@@ -14,7 +14,6 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
 
     protected final Random random = new Random();
 
-    @NotNull
     public abstract T generate();
 
     /**
@@ -24,7 +23,8 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
      * @return The next data entry
      */
     @NotNull
-    public final T generate(@NotNull final Map<Class<? extends DataField>, List<Object>> dependencies) throws IllegalAccessException {
+    public final T generate(@NotNull final Map<Class<? extends DataField>, List<Object>> dependencies)
+            throws IllegalAccessException {
         if (dependentFields == null) {
             dependentFields = Arrays.stream(getClass().getDeclaredFields())
                     .filter(f -> f.getDeclaredAnnotation(DependentField.class) != null)
@@ -38,9 +38,9 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
 
             if (List.class.isAssignableFrom(field.getType())) {
                 field.set(this, value);
-            } else if (field.getType().isArray()){
+            } else if (field.getType().isArray()) {
                 field.set(this, value.toArray());
-            } else if (value != null && !value.isEmpty()){
+            } else if (value != null && !value.isEmpty()) {
                 field.set(this, value.get(value.size() - 1));
             }
         }
