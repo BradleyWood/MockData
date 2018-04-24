@@ -16,11 +16,11 @@ public class FirstNameField extends DataField<String> {
     public String generate() {
         String name;
         if (gender == Gender.Male) {
-            name = DataUtilities.randomMaleName();
+            name = DataUtilities.selectMaleName(realDistribution.sample());
         } else if (gender == Gender.Female) {
             name = DataUtilities.randomFemaleName();
         } else {
-            name = DataUtilities.randomFirstName(random.nextBoolean());
+            name = DataUtilities.selectFirstName(random.nextBoolean(), realDistribution.sample());
         }
 
         if (name == null || name.isEmpty())

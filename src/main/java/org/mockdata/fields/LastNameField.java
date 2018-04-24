@@ -8,7 +8,7 @@ public class LastNameField extends DataField<String> {
     @NotNull
     @Override
     public String generate() {
-        final String name = DataUtilities.randomLastName();
+        final String name = DataUtilities.selectLastName(realDistribution.sample());
         return name != null ? name : "Doe";
     }
 

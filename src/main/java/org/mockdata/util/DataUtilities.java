@@ -88,8 +88,8 @@ public class DataUtilities {
         return lastNames.contains(name.toUpperCase());
     }
 
-    private static String selectName(final List<String> names, final List<Double> percentiles) {
-        final double key = random.nextDouble() * percentiles.get(percentiles.size() - 1);
+    private static String selectName(final List<String> names, final List<Double> percentiles, final double percentile) {
+        final double key = percentile * percentiles.get(percentiles.size() - 1);
         final int index = searchName(percentiles, key);
         final String name = names.get(index).toLowerCase();
 
@@ -122,7 +122,7 @@ public class DataUtilities {
         lnPercentiles = getPercentiles(records);
     }
 
-    public static String randomFirstName(final boolean male) {
+    public static String selectFirstName(final boolean male, final double percentile) {
         try {
             if (male && maleFirstNames == null) {
                 loadMaleNames();
@@ -134,18 +134,26 @@ public class DataUtilities {
             return null;
         }
 
-        return selectName(male ? maleFirstNames : femaleFirstNames, male ? mfnPercentiles : ffnPercentiles);
+        return selectName(male ? maleFirstNames : femaleFirstNames, male ? mfnPercentiles : ffnPercentiles, percentile);
+    }
+
+    public static String selectMaleName(final double percentile) {
+        return selectFirstName(true, percentile);
     }
 
     public static String randomMaleName() {
-        return randomFirstName(true);
+        return selectMaleName(random.nextDouble());
+    }
+
+    public static String selectFemaleName(final double percentile) {
+        return selectFirstName(false, percentile);
     }
 
     public static String randomFemaleName() {
-        return randomFirstName(false);
+        return selectFemaleName(random.nextDouble());
     }
 
-    public static String randomLastName() {
+    public static String selectLastName(final double percentile) {
         try {
             if (lastNames == null) {
                 loadLastNames();
@@ -154,7 +162,11 @@ public class DataUtilities {
             System.err.println("Error: Cannot find last names");
             return null;
         }
-        return selectName(lastNames, lnPercentiles);
+        return selectName(lastNames, lnPercentiles, percentile);
+    }
+
+    public static String randomLastName() {
+        return selectLastName(random.nextDouble());
     }
 
     private static int searchName(List<Double> percentiles, double key) {
