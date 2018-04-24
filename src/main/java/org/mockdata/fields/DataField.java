@@ -1,5 +1,6 @@
 package org.mockdata.fields;
 
+import org.apache.commons.math3.distribution.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
@@ -13,6 +14,27 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
     private List<Field> dependentFields;
 
     protected final Random random = new Random();
+
+    protected IntegerDistribution intDistribution;
+    protected RealDistribution realDistribution;
+
+    public DataField() {
+        this(new UniformIntegerDistribution(Integer.MIN_VALUE, Integer.MAX_VALUE),
+                new UniformRealDistribution());
+    }
+
+    public DataField(final IntegerDistribution intDistribution) {
+        this(intDistribution, new NormalDistribution());
+    }
+
+    public DataField(final RealDistribution realDistribution) {
+        this(new UniformIntegerDistribution(Integer.MIN_VALUE, Integer.MAX_VALUE), realDistribution);
+    }
+
+    public DataField(final IntegerDistribution intDistribution, final RealDistribution realDistribution) {
+        this.intDistribution = intDistribution;
+        this.realDistribution = realDistribution;
+    }
 
     public abstract T generate();
 
@@ -46,6 +68,14 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
         }
 
         return generate();
+    }
+
+    public final void setIntegerDistribution(final IntegerDistribution intDistribution) {
+        this.intDistribution = intDistribution;
+    }
+
+    public final void setRealDistribution(RealDistribution realDistribution) {
+        this.realDistribution = realDistribution;
     }
 
     public final Stream<T> stream() {
