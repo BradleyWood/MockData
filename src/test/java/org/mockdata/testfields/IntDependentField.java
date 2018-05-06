@@ -20,6 +20,11 @@ public class IntDependentField extends DataField<String> {
     }
 
     @Override
+    public String generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(Object element) {
         return true;
     }

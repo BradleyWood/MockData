@@ -30,6 +30,11 @@ public class SelectorField<T> extends DataField<T> {
     }
 
     @Override
+    public T generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(final Object element) {
         return set.contains(element);
     }

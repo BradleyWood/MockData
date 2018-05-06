@@ -25,6 +25,11 @@ public class DoubleField extends ContinuousNumericField<Double> {
     }
 
     @Override
+    public Double generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(final Object element) {
         if (!(element instanceof Double))
             return false;

@@ -41,6 +41,11 @@ public class IntField extends DiscreteNumericField<Integer> {
     }
 
     @Override
+    public Integer generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

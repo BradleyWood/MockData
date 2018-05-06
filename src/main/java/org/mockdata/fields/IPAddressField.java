@@ -14,6 +14,11 @@ public class IPAddressField extends DataField<String> {
     }
 
     @Override
+    public String generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(Object element) {
         if (!(element instanceof String))
             return false;

@@ -11,6 +11,11 @@ public class BooleanField extends DataField<Boolean> {
     }
 
     @Override
+    public Boolean generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(final Object element) {
         return element instanceof Boolean;
     }

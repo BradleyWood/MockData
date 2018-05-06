@@ -38,6 +38,8 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
 
     public abstract T generate();
 
+    public abstract T generateExtremes();
+
     /**
      * Generate the field with the given data dependencies
      *

@@ -40,6 +40,11 @@ public class ExclusiveSelectorField<T> extends DataField<T> {
     }
 
     @Override
+    public T generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(final Object element) {
         if (exclude != null && exclude.contains(element))
             return false;

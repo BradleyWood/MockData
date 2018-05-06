@@ -22,6 +22,11 @@ public class GenderField extends DataField<Gender> {
     }
 
     @Override
+    public Gender generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(final Object element) {
         return element instanceof Gender;
     }

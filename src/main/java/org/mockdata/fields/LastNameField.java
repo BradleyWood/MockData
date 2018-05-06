@@ -13,6 +13,11 @@ public class LastNameField extends DataField<String> {
     }
 
     @Override
+    public String generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(final Object element) {
         if (!(element instanceof String))
             return false;

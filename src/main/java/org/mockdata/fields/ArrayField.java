@@ -32,6 +32,11 @@ public class ArrayField extends DataField {
     }
 
     @Override
+    public Object generateExtremes() {
+        return null;
+    }
+
+    @Override
     public boolean isValid(Object element) {
         if (!(element instanceof Object[]))
             return false;
