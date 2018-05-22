@@ -3,6 +3,7 @@ package org.mockdata.util;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.jetbrains.annotations.NotNull;
 import org.mockdata.data.Gender;
 
 import java.io.BufferedReader;
@@ -19,6 +20,8 @@ public class DataUtilities {
     public static final String LAST_NAMES = "data/census-dist-all-last.csv";
 
     private static final Random random = new Random();
+
+    private static List<String> countries;
 
     private static List<String> maleFirstNames;
     private static List<Double> mfnPercentiles;
@@ -135,6 +138,42 @@ public class DataUtilities {
         }
 
         return selectName(male ? maleFirstNames : femaleFirstNames, male ? mfnPercentiles : ffnPercentiles, percentile);
+    }
+
+    private static void loadCountries() throws IOException {
+        countries = new ArrayList<>();
+        for (final CSVRecord country : readCsv("data/countries.csv")) {
+            countries.add(country.get(0));
+        }
+    }
+
+    public static String randomCountry() {
+        if (countries == null) {
+            try {
+                loadCountries();
+            } catch (final IOException e) {
+                return null;
+            }
+        }
+
+        return countries.get(random.nextInt(countries.size()));
+    }
+
+    public static boolean isCountry(@NotNull final String country) {
+        if (countries == null) {
+            try {
+                loadCountries();
+            } catch (final IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        for (final String name : countries) {
+            if (name.toLowerCase().equals(country.toLowerCase()))
+                return true;
+        }
+        return false;
     }
 
     public static String selectMaleName(final double percentile) {
