@@ -2,6 +2,7 @@ package org.mockdata.fields;
 
 import org.apache.commons.math3.distribution.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -14,6 +15,8 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
     private List<Field> dependentFields;
 
     protected final Random random = new Random();
+
+    private double extremeProportion = 0;
 
     protected IntegerDistribution intDistribution;
     protected RealDistribution realDistribution;
@@ -38,6 +41,13 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
 
     public abstract T generate();
 
+    /**
+     * Generates an extreme value for this field including edge cases
+     * and illegal values
+     *
+     * @return An outlier or illegal value for this field
+     */
+    @Nullable
     public abstract T generateExtremes();
 
     /**
@@ -46,7 +56,6 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
      * @param dependencies Data dependencies from previously generated fields in the same row
      * @return The next data entry
      */
-    @NotNull
     public final T generate(@NotNull final Map<Class<? extends DataField>, List<Object>> dependencies)
             throws IllegalAccessException {
         if (dependentFields == null) {
@@ -54,6 +63,9 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
                     .filter(f -> f.getDeclaredAnnotation(DependentField.class) != null)
                     .collect(Collectors.toList());
         }
+
+        if (extremeProportion < 0 || extremeProportion > 1)
+            throw new IllegalArgumentException("Proportion of extreme values must be between 0 and 1");
 
         for (final Field field : dependentFields) {
             final DependentField depAnno = field.getAnnotation(DependentField.class);
@@ -69,7 +81,18 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
             }
         }
 
+        if (random.nextDouble() < extremeProportion)
+            return generateExtremes();
+
         return generate();
+    }
+
+    public final double getExtremeProportion() {
+        return extremeProportion;
+    }
+
+    public final void setExtremeProportion(double extremeProportion) {
+        this.extremeProportion = extremeProportion;
     }
 
     public final void setIntegerDistribution(final IntegerDistribution intDistribution) {
