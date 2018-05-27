@@ -3,6 +3,8 @@ package org.mockdata.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.mockdata.api.generators.FieldGenerator;
 import org.mockdata.fields.DataField;
@@ -22,7 +24,7 @@ public class FieldConfig implements Verifiable {
     private Map<String, Object> parameters;
 
     @Expose(serialize = false, deserialize = false)
-    private static final FieldGenerator chain = FieldGenerator.getChain();
+    private static @Getter @Setter FieldGenerator chain = FieldGenerator.getChain();
 
     public DataField instantiate() {
         if (!isValid())
