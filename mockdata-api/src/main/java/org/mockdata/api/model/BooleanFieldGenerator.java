@@ -21,7 +21,7 @@ public final class BooleanFieldGenerator extends FieldGenerator {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isValid(final Map<String, Object> parameters) {
         return true;
     }
 }

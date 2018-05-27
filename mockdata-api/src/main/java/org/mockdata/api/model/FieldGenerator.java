@@ -7,13 +7,13 @@ import org.mockdata.fields.DataField;
 
 import java.util.Map;
 
-public abstract class FieldGenerator implements Verifiable {
+public abstract class FieldGenerator {
 
     private @Getter @Setter FieldGenerator successor;
 
     DataField instantiate(final String type, final Map<String, Object> parameters) {
         if (type.toLowerCase().equals(getTypeName().toLowerCase())) {
-            if (!isValid())
+            if (!isValid(parameters))
                 return null;
 
             return instantiate(parameters);
@@ -24,6 +24,8 @@ public abstract class FieldGenerator implements Verifiable {
 
         return null;
     }
+
+    abstract boolean isValid(final Map<String, Object> parameters);
 
     abstract DataField instantiate(final Map<String, Object> parameters);
 
