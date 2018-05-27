@@ -1,0 +1,19 @@
+{
+  "num_records": 100,
+  "format": "json",
+  "field_config": [
+    {
+      "type": "boolean",
+      "parameters": {
+      }
+    },
+    {
+      "type": "boolean"
+    },
+    {
+      "type": "boolean",
+      "parameters": {
+      }
+    }
+  ]
+}
