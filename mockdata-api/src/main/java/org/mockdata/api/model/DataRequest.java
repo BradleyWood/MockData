@@ -5,18 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 @EqualsAndHashCode
 @AllArgsConstructor
-public class DataRequest {
+public class DataRequest implements Verifiable {
 
     @SerializedName("num_records")
     private final Integer numRecords;
 
-    @SerializedName("invalid_proportion")
-    private final Double invalidProportion;
-
     @SerializedName("format")
     private final Format format;
+
+    @SerializedName("field_config")
+    private final List<FieldConfig> fieldConfig;
 
     @NotNull
     public Integer getNumRecords() {
@@ -25,14 +27,17 @@ public class DataRequest {
     }
 
     @NotNull
-    public Double getInvalidProportion() {
-        if (invalidProportion == null) return 0.0;
-        return invalidProportion;
-    }
-
-    @NotNull
     public Format getFormat() {
         if (format == null) return Format.CSV;
         return format;
     }
+
+    @Override
+    public boolean isValid() {
+        if (getNumRecords() < 1 || getNumRecords() > 1000)
+            return false;
+
+        return fieldConfig != null && !fieldConfig.isEmpty() && fieldConfig.stream().allMatch(FieldConfig::isValid);
+    }
+
 }
