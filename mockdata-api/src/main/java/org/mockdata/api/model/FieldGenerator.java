@@ -12,8 +12,12 @@ public abstract class FieldGenerator implements Verifiable {
     private @Getter @Setter FieldGenerator successor;
 
     DataField instantiate(final String type, final Map<String, Object> parameters) {
-        if (type.toLowerCase().equals(getTypeName().toLowerCase()))
+        if (type.toLowerCase().equals(getTypeName().toLowerCase())) {
+            if (!isValid())
+                return null;
+
             return instantiate(parameters);
+        }
 
         if (getSuccessor() != null)
             return getSuccessor().instantiate(type, parameters);
