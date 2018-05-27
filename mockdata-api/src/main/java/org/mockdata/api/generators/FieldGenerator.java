@@ -38,7 +38,8 @@ public abstract class FieldGenerator {
         final List<FieldGenerator> generators = Arrays.asList(
                 new BooleanFieldGenerator(),
                 new BlankFieldGenerator(),
-                new ConstantFieldGenerator()
+                new ConstantFieldGenerator(),
+                new IntFieldGenerator()
         );
         Iterator<FieldGenerator> iterator = generators.iterator();
 
