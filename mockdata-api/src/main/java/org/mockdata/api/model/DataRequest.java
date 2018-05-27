@@ -1,11 +1,15 @@
 package org.mockdata.api.model;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import org.mockdata.RecordEngine;
+import org.mockdata.fields.DataField;
 
+import java.util.Collection;
 import java.util.List;
 
 @EqualsAndHashCode
@@ -39,6 +43,22 @@ public class DataRequest implements Verifiable {
             return false;
 
         return fieldConfig != null && !fieldConfig.isEmpty() && fieldConfig.stream().allMatch(FieldConfig::isValid);
+    }
+
+    public String processRequest() {
+        final RecordEngine re = new RecordEngine();
+
+        for (final FieldConfig config : getFieldConfig()) {
+            final DataField field = config.instantiate();
+            if (field == null)
+                return null;
+            re.addDataFields(field);
+        }
+
+        final Collection<Object[]> records = re.generate(getNumRecords());
+        final Gson gson = new Gson();
+
+        return gson.toJson(records);
     }
 
 }
