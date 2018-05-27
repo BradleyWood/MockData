@@ -47,10 +47,12 @@ public class FieldConfig implements Verifiable {
     }
 
     private static FieldGenerator getChain() {
-        final List<BooleanFieldGenerator> generators = Arrays.asList(
-                new BooleanFieldGenerator()
+        final List<FieldGenerator> generators = Arrays.asList(
+                new BooleanFieldGenerator(),
+                new BlankFieldGenerator(),
+                new ConstantFieldGenerator()
         );
-        Iterator<BooleanFieldGenerator> iterator = generators.iterator();
+        Iterator<FieldGenerator> iterator = generators.iterator();
 
         FieldGenerator head = iterator.next();
         FieldGenerator tmp = head;
