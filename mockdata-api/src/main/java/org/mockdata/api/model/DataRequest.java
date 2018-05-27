@@ -3,6 +3,7 @@ package org.mockdata.api.model;
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class DataRequest implements Verifiable {
     private final Format format;
 
     @SerializedName("field_config")
-    private final List<FieldConfig> fieldConfig;
+    private final @Getter List<FieldConfig> fieldConfig;
 
     @NotNull
     public Integer getNumRecords() {
