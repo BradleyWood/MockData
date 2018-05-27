@@ -1,4 +1,4 @@
-package org.mockdata.api.model;
+package org.mockdata.api.generators;
 
 import org.mockdata.fields.BlankField;
 import org.mockdata.fields.DataField;
@@ -6,9 +6,6 @@ import org.mockdata.fields.DataField;
 import java.util.Map;
 
 public class BlankFieldGenerator extends FieldGenerator {
-
-    BlankFieldGenerator() {
-    }
 
     @Override
     DataField instantiate(Map<String, Object> parameters) {

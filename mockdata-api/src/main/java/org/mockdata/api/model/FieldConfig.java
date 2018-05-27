@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.NotNull;
+import org.mockdata.api.generators.FieldGenerator;
 import org.mockdata.fields.DataField;
 
 import java.util.*;
@@ -21,7 +22,7 @@ public class FieldConfig implements Verifiable {
     private Map<String, Object> parameters;
 
     @Expose(serialize = false, deserialize = false)
-    private static final FieldGenerator chain = getChain();
+    private static final FieldGenerator chain = FieldGenerator.getChain();
 
     public DataField instantiate() {
         if (!isValid())
@@ -46,23 +47,4 @@ public class FieldConfig implements Verifiable {
         return type != null && getInvalidProportion() >= 0 && getInvalidProportion() <= 1;
     }
 
-    private static FieldGenerator getChain() {
-        final List<FieldGenerator> generators = Arrays.asList(
-                new BooleanFieldGenerator(),
-                new BlankFieldGenerator(),
-                new ConstantFieldGenerator()
-        );
-        Iterator<FieldGenerator> iterator = generators.iterator();
-
-        FieldGenerator head = iterator.next();
-        FieldGenerator tmp = head;
-
-        while (iterator.hasNext()) {
-            FieldGenerator next = iterator.next();
-            tmp.setSuccessor(next);
-            tmp = next;
-        }
-
-        return head;
-    }
 }
