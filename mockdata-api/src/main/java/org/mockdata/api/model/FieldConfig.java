@@ -20,6 +20,9 @@ public class FieldConfig implements Verifiable {
     @SerializedName("invalid_proportion")
     private Double invalidProportion;
 
+    @SerializedName("independent")
+    private Boolean independent;
+
     @SerializedName("parameters")
     private Map<String, Object> parameters;
 
@@ -39,9 +42,16 @@ public class FieldConfig implements Verifiable {
         return invalidProportion;
     }
 
+    @NotNull
     public Map<String, Object> getParameters() {
         if (parameters == null) return Collections.EMPTY_MAP;
         return parameters;
+    }
+
+    @NotNull
+    public Boolean isIndependent() {
+        if (independent == null) return false;
+        return independent;
     }
 
     @Override

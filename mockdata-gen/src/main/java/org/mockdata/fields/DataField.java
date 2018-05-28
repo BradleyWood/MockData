@@ -73,14 +73,14 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
             final List<Object> value = dependencies.get(depAnno.dependentOn());
             field.setAccessible(true);
 
-            if (List.class.isAssignableFrom(field.getType())) {
+            if (value == null || isIndependent()) {
+                field.set(this, null);
+            } else if (List.class.isAssignableFrom(field.getType())) {
                 field.set(this, value);
             } else if (field.getType().isArray()) {
                 field.set(this, value.toArray());
-            } else if (value != null && !value.isEmpty()) {
+            } else if (!value.isEmpty()) {
                 field.set(this, value.get(value.size() - 1));
-            } else if (value == null || isIndependent()) {
-                field.set(this, null);
             }
         }
 

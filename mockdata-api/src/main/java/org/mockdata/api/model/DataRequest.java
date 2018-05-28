@@ -54,6 +54,7 @@ public class DataRequest implements Verifiable {
                 return null;
 
             field.setExtremeProportion(config.getInvalidProportion());
+            field.setIndependence(config.isIndependent());
             re.addDataFields(field);
         }
 
