@@ -10,10 +10,16 @@ class DoubleFieldGenerator extends FieldGenerator {
     @Override
     boolean isValid(final Map<String, Object> parameters) {
         final Object min = parameters.getOrDefault("min", Integer.MIN_VALUE);
-        final Object max = parameters.getOrDefault("min", Integer.MAX_VALUE);
+        final Object max = parameters.getOrDefault("max", Integer.MAX_VALUE);
 
         if (min instanceof Number && max instanceof Number) {
-            return ((Number) min).doubleValue() <= ((Number) max).doubleValue();
+            Double l = ((Number) min).doubleValue();
+            Double h = ((Number) max).doubleValue();
+            if (l <= h) {
+                parameters.put("min", l);
+                parameters.put("max", h);
+                return true;
+            }
         }
 
         return false;
@@ -21,8 +27,7 @@ class DoubleFieldGenerator extends FieldGenerator {
 
     @Override
     DataField instantiate(final Map<String, Object> parameters) {
-        return new DoubleField(((Number) parameters.getOrDefault("min", Integer.MIN_VALUE)).doubleValue(),
-                ((Number) parameters.getOrDefault("max", Integer.MAX_VALUE)).doubleValue());
+        return new DoubleField((Double) parameters.get("min"), (Double) parameters.get("max"));
     }
 
     @Override
