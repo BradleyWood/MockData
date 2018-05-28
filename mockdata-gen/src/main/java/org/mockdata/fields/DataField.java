@@ -17,6 +17,7 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
     protected final Random random = new Random();
 
     private double extremeProportion = 0;
+    private boolean independent = false;
 
     protected IntegerDistribution intDistribution;
     protected RealDistribution realDistribution;
@@ -78,6 +79,8 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
                 field.set(this, value.toArray());
             } else if (value != null && !value.isEmpty()) {
                 field.set(this, value.get(value.size() - 1));
+            } else if (value == null || isIndependent()) {
+                field.set(this, null);
             }
         }
 
@@ -85,6 +88,14 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
             return generateExtremes();
 
         return generate();
+    }
+
+    public final boolean isIndependent() {
+        return independent;
+    }
+
+    public final void setIndependence(final boolean independent) {
+        this.independent = independent;
     }
 
     public final double getExtremeProportion() {
