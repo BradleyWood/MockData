@@ -8,12 +8,12 @@ import java.util.Map;
 public class FirstNameGenerator extends FieldGenerator {
 
     @Override
-    boolean isValid(Map<String, Object> parameters) {
+    boolean isValid(final Map<String, Object> parameters) {
         return true;
     }
 
     @Override
-    DataField instantiate(Map<String, Object> parameters) {
+    DataField instantiate(final Map<String, Object> parameters) {
         return new FirstNameField();
     }
 

@@ -8,7 +8,7 @@ import java.util.Map;
 public class BlankFieldGenerator extends FieldGenerator {
 
     @Override
-    DataField instantiate(Map<String, Object> parameters) {
+    DataField instantiate(final Map<String, Object> parameters) {
         return new BlankField();
     }
 
