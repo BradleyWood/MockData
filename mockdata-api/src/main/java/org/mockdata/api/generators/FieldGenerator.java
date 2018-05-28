@@ -42,7 +42,8 @@ public abstract class FieldGenerator {
                 new IntFieldGenerator(),
                 new DoubleFieldGenerator(),
                 new GenderFieldGenerator(),
-                new FirstNameGenerator()
+                new FirstNameGenerator(),
+                new LastNameGenerator()
         );
         Iterator<FieldGenerator> iterator = generators.iterator();
 
