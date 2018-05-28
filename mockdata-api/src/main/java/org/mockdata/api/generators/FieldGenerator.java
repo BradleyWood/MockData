@@ -14,7 +14,7 @@ public abstract class FieldGenerator {
 
     private @Getter @Setter FieldGenerator successor;
 
-    public DataField instantiate(final String type, final Map<String, Object> parameters) {
+    public final DataField instantiate(final String type, final Map<String, Object> parameters) {
         if (type.toLowerCase().equals(getTypeName().toLowerCase())) {
             if (!isValid(parameters))
                 return null;
@@ -39,7 +39,8 @@ public abstract class FieldGenerator {
                 new BooleanFieldGenerator(),
                 new BlankFieldGenerator(),
                 new ConstantFieldGenerator(),
-                new IntFieldGenerator()
+                new IntFieldGenerator(),
+                new DoubleFieldGenerator()
         );
         Iterator<FieldGenerator> iterator = generators.iterator();
 
