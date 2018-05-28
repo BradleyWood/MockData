@@ -6,10 +6,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.jetbrains.annotations.NotNull;
 import org.mockdata.data.Gender;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,7 +30,12 @@ public class DataUtilities {
     private static List<Double> lnPercentiles;
 
     public static List<CSVRecord> readCsv(final String path) throws IOException {
-        BufferedReader br = Files.newBufferedReader(Paths.get(path));
+        InputStream in = DataUtilities.class.getClassLoader().getResourceAsStream(path);
+        if (in == null) {
+            System.out.println("Path not found: "+ path);
+            in = new FileInputStream(path);
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
         CSVParser parser = new CSVParser(br, CSVFormat.EXCEL);
 
         return parser.getRecords();
