@@ -5,7 +5,7 @@ import org.mockdata.fields.DataField;
 
 import java.util.Map;
 
-public final class BooleanFieldGenerator extends FieldGenerator {
+final class BooleanFieldGenerator extends FieldGenerator {
 
     @Override
     final DataField instantiate(final Map<String, Object> parameters) {

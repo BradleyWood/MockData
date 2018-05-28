@@ -5,7 +5,7 @@ import org.mockdata.fields.IntField;
 
 import java.util.Map;
 
-public class IntFieldGenerator extends FieldGenerator {
+class IntFieldGenerator extends FieldGenerator {
 
     @Override
     boolean isValid(final Map<String, Object> parameters) {

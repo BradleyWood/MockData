@@ -5,7 +5,7 @@ import org.mockdata.fields.GenderField;
 
 import java.util.Map;
 
-public class GenderFieldGenerator extends FieldGenerator {
+class GenderFieldGenerator extends FieldGenerator {
 
     @Override
     boolean isValid(final Map<String, Object> parameters) {

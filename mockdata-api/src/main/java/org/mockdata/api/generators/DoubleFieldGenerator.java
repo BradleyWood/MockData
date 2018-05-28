@@ -5,7 +5,7 @@ import org.mockdata.fields.DoubleField;
 
 import java.util.Map;
 
-public class DoubleFieldGenerator extends FieldGenerator {
+class DoubleFieldGenerator extends FieldGenerator {
 
     @Override
     boolean isValid(final Map<String, Object> parameters) {

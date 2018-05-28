@@ -5,7 +5,7 @@ import org.mockdata.fields.DataField;
 
 import java.util.Map;
 
-public class BlankFieldGenerator extends FieldGenerator {
+class BlankFieldGenerator extends FieldGenerator {
 
     @Override
     DataField instantiate(final Map<String, Object> parameters) {

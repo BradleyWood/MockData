@@ -8,7 +8,7 @@ import org.mockdata.fields.DataField;
 
 import java.util.Map;
 
-public class ArrayFieldGenerator extends FieldGenerator {
+class ArrayFieldGenerator extends FieldGenerator {
 
     @Override
     boolean isValid(final Map<String, Object> parameters) {

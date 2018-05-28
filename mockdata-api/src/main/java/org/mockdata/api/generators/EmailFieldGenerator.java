@@ -5,7 +5,7 @@ import org.mockdata.fields.EmailField;
 
 import java.util.Map;
 
-public class EmailFieldGenerator extends FieldGenerator {
+class EmailFieldGenerator extends FieldGenerator {
 
     @Override
     boolean isValid(final Map<String, Object> parameters) {

@@ -5,7 +5,7 @@ import org.mockdata.fields.FirstNameField;
 
 import java.util.Map;
 
-public class FirstNameGenerator extends FieldGenerator {
+class FirstNameGenerator extends FieldGenerator {
 
     @Override
     boolean isValid(final Map<String, Object> parameters) {
