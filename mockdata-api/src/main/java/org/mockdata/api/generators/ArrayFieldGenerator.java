@@ -1,6 +1,7 @@
 package org.mockdata.api.generators;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import org.mockdata.api.model.FieldConfig;
 import org.mockdata.fields.ArrayField;
 import org.mockdata.fields.DataField;
@@ -22,12 +23,16 @@ public class ArrayFieldGenerator extends FieldGenerator {
 
         Gson gson = new Gson();
 
-        final FieldConfig config = gson.fromJson(fieldParam.toString(), FieldConfig.class);
+        try {
+            final FieldConfig config = gson.fromJson(fieldParam.toString(), FieldConfig.class);
 
-        if (config == null)
+            if (config == null)
+                return false;
+
+            parameters.put("field", config.instantiate());
+        } catch (JsonSyntaxException e) {
             return false;
-
-        parameters.put("field", config.instantiate());
+        }
 
         return true;
     }

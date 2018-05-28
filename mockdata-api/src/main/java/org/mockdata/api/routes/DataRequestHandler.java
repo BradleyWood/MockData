@@ -1,8 +1,10 @@
 package org.mockdata.api.routes;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.apache.http.protocol.HTTP;
 import org.mockdata.api.model.DataRequest;
 
 import java.io.ByteArrayOutputStream;
@@ -22,19 +24,25 @@ public class DataRequestHandler implements HttpHandler {
         if (httpExchange.getRequestMethod().equalsIgnoreCase("POST")) {
             final String body = readBody(httpExchange.getRequestBody());
 
-            final DataRequest req = gson.fromJson(body, DataRequest.class);
-            String response = null;
-            if (req == null || (response = req.processRequest()) == null) {
-                httpExchange.sendResponseHeaders(500, -1);
+            try {
+                final DataRequest req = gson.fromJson(body, DataRequest.class);
+                String response;
+                if (req == null || (response = req.processRequest()) == null) {
+                    httpExchange.sendResponseHeaders(422, -1);
+                } else {
+                    httpExchange.sendResponseHeaders(200, response.length());
+                    OutputStream os = httpExchange.getResponseBody();
+                    os.write(response.getBytes());
+                    os.close();
+                }
+            } catch (JsonSyntaxException e) {
+                httpExchange.sendResponseHeaders(400, -1);
             }
 
-            httpExchange.sendResponseHeaders(200, response.length());
-            OutputStream os = httpExchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
         } else {
             httpExchange.sendResponseHeaders(405, -1);
         }
+        httpExchange.close();
     }
 
     private static String readBody(final InputStream in) throws IOException {
