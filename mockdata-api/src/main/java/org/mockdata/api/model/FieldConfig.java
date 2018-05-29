@@ -44,7 +44,7 @@ public class FieldConfig implements Verifiable {
 
     @NotNull
     public Map<String, Object> getParameters() {
-        if (parameters == null) return Collections.EMPTY_MAP;
+        if (parameters == null) return new HashMap<>();
         return parameters;
     }
 
