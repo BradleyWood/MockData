@@ -46,7 +46,8 @@ public abstract class FieldGenerator {
                 new LastNameGenerator(),
                 new EmailFieldGenerator(),
                 new ArrayFieldGenerator(),
-                new IPFieldGenerator()
+                new IPFieldGenerator(),
+                new SelectorFieldGenerator()
         );
         Iterator<FieldGenerator> iterator = generators.iterator();
 
