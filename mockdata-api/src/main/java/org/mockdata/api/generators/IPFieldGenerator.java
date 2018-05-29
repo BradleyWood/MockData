@@ -5,7 +5,7 @@ import org.mockdata.fields.IPAddressField;
 
 import java.util.Map;
 
-public class IPFieldGenerator extends FieldGenerator {
+class IPFieldGenerator extends FieldGenerator {
 
     @Override
     boolean isValid(final Map<String, Object> parameters) {
