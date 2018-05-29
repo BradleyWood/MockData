@@ -9,6 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import org.mockdata.RecordEngine;
 import org.mockdata.fields.DataField;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
 
@@ -58,10 +61,25 @@ public class DataRequest implements Verifiable {
             re.addDataFields(field);
         }
 
-        final Collection<Object[]> records = re.generate(getNumRecords());
-        final Gson gson = new Gson();
+        if (getFormat() == Format.CSV) {
+            try {
+                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                final PrintStream pw = new PrintStream(baos);
+                re.writeRecords(pw, getNumRecords());
 
-        return gson.toJson(records);
+                return new String(baos.toByteArray());
+            } catch (final Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else if (getFormat() == Format.JSON) {
+            final Collection<Object[]> records = re.generate(getNumRecords());
+            final Gson gson = new Gson();
+
+            return gson.toJson(records);
+        } else {
+            return null;
+        }
     }
 
 }
