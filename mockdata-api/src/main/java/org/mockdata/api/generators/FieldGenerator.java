@@ -36,20 +36,13 @@ public abstract class FieldGenerator {
 
     public static FieldGenerator getChain() {
         final List<FieldGenerator> generators = Arrays.asList(
-                new BooleanFieldGenerator(),
-                new BlankFieldGenerator(),
-                new ConstantFieldGenerator(),
-                new IntFieldGenerator(),
-                new DoubleFieldGenerator(),
-                new GenderFieldGenerator(),
-                new FirstNameGenerator(),
-                new LastNameGenerator(),
-                new EmailFieldGenerator(),
-                new ArrayFieldGenerator(),
-                new IPFieldGenerator(),
-                new SelectorFieldGenerator(),
-                new RowNumberGenerator()
+                new BooleanFieldGenerator(), new BlankFieldGenerator(), new ConstantFieldGenerator(),
+                new IntFieldGenerator(), new DoubleFieldGenerator(), new GenderFieldGenerator(),
+                new FirstNameGenerator(), new LastNameGenerator(), new EmailFieldGenerator(),
+                new ArrayFieldGenerator(), new IPFieldGenerator(), new SelectorFieldGenerator(),
+                new RowNumberGenerator(), new CountryFieldGenerator()
         );
+
         Iterator<FieldGenerator> iterator = generators.iterator();
 
         FieldGenerator head = iterator.next();
