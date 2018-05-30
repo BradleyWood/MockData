@@ -40,7 +40,7 @@ public abstract class FieldGenerator {
                 new IntFieldGenerator(), new DoubleFieldGenerator(), new GenderFieldGenerator(),
                 new FirstNameGenerator(), new LastNameGenerator(), new EmailFieldGenerator(),
                 new ArrayFieldGenerator(), new IPFieldGenerator(), new SelectorFieldGenerator(),
-                new RowNumberGenerator(), new CountryFieldGenerator()
+                new RowNumberGenerator(), new CountryFieldGenerator(), new ExclusiveSelectorFieldGenerator()
         );
 
         Iterator<FieldGenerator> iterator = generators.iterator();
