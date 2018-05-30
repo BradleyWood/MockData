@@ -1,0 +1,15 @@
+{
+  "num_records": 100,
+  "format": "json",
+  "field_config": [
+    {
+      "type": "array",
+      "parameters": {
+        "size": 10,
+        "field": {
+          "type": "blank"
+        }
+      }
+    }
+  ]
+}

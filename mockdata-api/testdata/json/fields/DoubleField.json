@@ -1,0 +1,13 @@
+{
+  "num_records": 100,
+  "format": "json",
+  "field_config": [
+    {
+      "type": "double",
+      "paramters": {
+        "min": 0,
+        "max": 100.5
+      }
+    }
+  ]
+}

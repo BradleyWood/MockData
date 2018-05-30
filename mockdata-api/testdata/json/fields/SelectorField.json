@@ -1,0 +1,20 @@
+{
+  "num_records": 100,
+  "format": "json",
+  "field_config": [
+    {
+      "type": "selector",
+      "parameters": {
+        "values": [
+          50,
+          10,
+          "abc",
+          true,
+          false,
+          null,
+          50.0
+        ]
+      }
+    }
+  ]
+}

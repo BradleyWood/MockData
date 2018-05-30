@@ -1,0 +1,13 @@
+{
+  "num_records": 100,
+  "format": "json",
+  "field_config": [
+    {
+      "type": "integer",
+      "parameters": {
+        "min": -10,
+        "max": 100
+      }
+    }
+  ]
+}

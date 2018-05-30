@@ -1,0 +1,9 @@
+{
+  "num_records": 100,
+  "format": "json",
+  "field_config": [
+    {
+      "type": "gender"
+    }
+  ]
+}
