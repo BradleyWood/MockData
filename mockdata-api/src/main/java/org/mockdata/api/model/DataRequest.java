@@ -11,7 +11,6 @@ import org.mockdata.fields.DataField;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
 
