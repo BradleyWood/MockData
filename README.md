@@ -48,6 +48,13 @@ This type of problem does not cause a deadlock, instead the first field in the r
 is generated independently of its dependent field.
 
 
+## Project Layout
+
+- [mockdata-gen](mockdata-gen/src/main/java/org/mockdata) - Api to generate mock data
+
+- [mockdata-api](mockdata-api/src/main/java/org/mockdata/api) - Restful api to request mock data
+
+
 ## Examples
 
 #### Junit Parameterized Test example
@@ -76,4 +83,43 @@ public static Collection parameters() {
     return re.stream().limit(100).peek(a -> af.setSize(intField.generate()))
             .map(Record::getValues).collect(Collectors.toList());
 }
+```
+
+## Testing
+
+```
+curl --header "Content-Type: application/json" \
+--request POST \
+--data "{
+  "num_records": 5,
+  "format": "json", // json or csv
+  "field_config": [ // array of objects defining each field
+    {
+      "type": "row_number"
+    },
+    {
+      "type": "first_name"
+    },
+    {
+      "type": "integer",
+      "parameters": { // specify parameters for the integer field
+      "min": 18,
+      "max": 65
+      }
+    }
+  ]
+}" \
+http://localhost:8000/datarequest
+```
+
+Response:
+
+```json
+[
+  [0, "Britt", 18],
+  [1, "Joan", 48],
+  [2, "Lee", 62],
+  [3, "Morton", 26],
+  [4, "Jacqueline", 43]
+]
 ```
