@@ -4,17 +4,19 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.mockdata.fields.*;
 
+import java.lang.reflect.Constructor;
+
 public enum Field {
 
     ARRAY("array", ArrayField.class),
-    BLANK_FIELD("blank_field", BlankField.class),
+    BLANK_FIELD("blank", BlankField.class),
     BOOLEAN("boolean", BooleanField.class),
     CONSTANT("constant", ConstantField.class),
     COUNTRY("country", CountryField.class),
     DOUBLE("double", DoubleField.class),
     EMAIL("email", EmailField.class),
     EXCLUSIVE_SELECTOR("exclusive_selector", ExclusiveSelectorField.class),
-    FIRST_NAME("fist_name", FirstNameField.class),
+    FIRST_NAME("first_name", FirstNameField.class),
     GENDER("gender", GenderField.class),
     IP_ADDRESS("ip_address", IPAddressField.class),
     INTEGER("integer", IntField.class),
@@ -34,8 +36,10 @@ public enum Field {
         for (final Field value : values()) {
             if (value.getName().equals(name.toLowerCase())) {
                 try {
-                    return (DataField) value.type.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
+                    final Constructor<DataField> constructor = value.type.getDeclaredConstructor();
+                    constructor.setAccessible(true);
+                    return constructor.newInstance();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
