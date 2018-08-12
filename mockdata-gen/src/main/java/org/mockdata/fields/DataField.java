@@ -102,7 +102,7 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
         return extremeProportion;
     }
 
-    public final void setExtremeProportion(double extremeProportion) {
+    public final void setExtremeProportion(final double extremeProportion) {
         this.extremeProportion = extremeProportion;
     }
 
@@ -110,7 +110,7 @@ public abstract class DataField<T> implements Verifiable, Iterable<T> {
         this.intDistribution = intDistribution;
     }
 
-    public final void setRealDistribution(RealDistribution realDistribution) {
+    public final void setRealDistribution(final RealDistribution realDistribution) {
         this.realDistribution = realDistribution;
     }
 
