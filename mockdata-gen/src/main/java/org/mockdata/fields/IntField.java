@@ -32,12 +32,7 @@ public class IntField extends DiscreteNumericField<Integer> {
             bound--;
         }
 
-        int value = min + random.nextInt(bound + 1);
-
-        if (!isValid(value))
-            throw new RuntimeException("Invalid integer generated: " + value + " acceptable range [" + min + "," + max + "]");
-
-        return value;
+        return min + random.nextInt(bound + 1);
     }
 
     @Override

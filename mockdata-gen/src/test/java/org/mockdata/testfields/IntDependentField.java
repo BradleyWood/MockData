@@ -25,7 +25,7 @@ public class IntDependentField extends DataField<String> {
     }
 
     @Override
-    public boolean isValid(Object element) {
+    public boolean isValid() {
         return true;
     }
 }

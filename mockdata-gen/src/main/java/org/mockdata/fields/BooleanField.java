@@ -16,8 +16,8 @@ public class BooleanField extends DataField<Boolean> {
     }
 
     @Override
-    public boolean isValid(final Object element) {
-        return element instanceof Boolean;
+    public boolean isValid() {
+        return true;
     }
 
     @Override

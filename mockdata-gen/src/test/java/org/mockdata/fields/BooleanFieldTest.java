@@ -15,11 +15,4 @@ public class BooleanFieldTest {
         }
     }
 
-    @Test
-    public void testIsValid() {
-        BooleanField field = new BooleanField();
-        Assert.assertTrue(field.isValid(true));
-        Assert.assertTrue(field.isValid(false));
-        Assert.assertFalse(field.isValid(null));
-    }
 }

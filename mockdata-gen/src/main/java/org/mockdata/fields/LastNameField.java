@@ -18,12 +18,7 @@ public class LastNameField extends DataField<String> {
     }
 
     @Override
-    public boolean isValid(final Object element) {
-        if (!(element instanceof String))
-            return false;
-
-        final String name = (String) element;
-
-        return !name.isEmpty() & !name.matches("[0-9] \t\r\n");
+    public boolean isValid() {
+        return true;
     }
 }

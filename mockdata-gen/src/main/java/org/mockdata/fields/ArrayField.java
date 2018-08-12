@@ -13,6 +13,10 @@ public class ArrayField extends DataField {
         this.size = size;
     }
 
+    private ArrayField() {
+        field = null;
+    }
+
     public int getSize() {
         return size;
     }
@@ -37,18 +41,7 @@ public class ArrayField extends DataField {
     }
 
     @Override
-    public boolean isValid(Object element) {
-        if (!(element instanceof Object[]))
-            return false;
-        Object[] data = (Object[]) element;
-
-        if (data.length != size)
-            return false;
-
-        for (int i = 0; i < data.length; i++) {
-            if (!field.isValid(data[i]))
-                return false;
-        }
-        return true;
+    public boolean isValid() {
+        return field != null && size >= 0;
     }
 }

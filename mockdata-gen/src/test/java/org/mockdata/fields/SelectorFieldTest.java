@@ -21,16 +21,16 @@ public class SelectorFieldTest {
 
     @Test
     public void selectionTest() {
-        Integer v = selector.generate();
+        final Integer v = selector.generate();
         Assert.assertNotNull(v);
-        Assert.assertTrue(selector.isValid(v));
+        Assert.assertTrue(selector.contains(v));
     }
 
     @Parameterized.Parameters(name = "Selector Test")
     public static Collection parameters() {
-        IntField intField = new IntField(1, 100);
-        ArrayField af = new ArrayField(new IntField(), intField.generate());
-        RecordEngine re = new RecordEngine(af);
+        final IntField intField = new IntField(1, 100);
+        final ArrayField af = new ArrayField(new IntField(), intField.generate());
+        final RecordEngine re = new RecordEngine(af);
 
         // generate 100 random sets of varying length containing random integers
 

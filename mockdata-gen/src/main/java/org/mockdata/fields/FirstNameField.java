@@ -26,10 +26,6 @@ public class FirstNameField extends DataField<String> {
         if (name == null || name.isEmpty())
             return "Bob";
 
-        if (!isValid(name)) {
-            throw new RuntimeException();
-        }
-
         return name;
     }
 
@@ -39,12 +35,7 @@ public class FirstNameField extends DataField<String> {
     }
 
     @Override
-    public boolean isValid(final Object element) {
-        if (!(element instanceof String))
-            return false;
-
-        final String name = (String) element;
-
-        return !name.isEmpty() & !name.matches("[0-9] \t\r\n");
+    public boolean isValid() {
+        return true;
     }
 }

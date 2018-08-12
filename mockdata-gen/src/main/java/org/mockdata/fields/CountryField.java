@@ -23,10 +23,7 @@ public class CountryField extends DataField<String> {
     }
 
     @Override
-    public boolean isValid(final Object element) {
-        if (!(element instanceof String))
-            return false;
-
-        return DataUtilities.isCountry((String) element);
+    public boolean isValid() {
+        return true;
     }
 }

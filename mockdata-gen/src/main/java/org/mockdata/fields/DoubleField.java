@@ -30,9 +30,7 @@ public class DoubleField extends ContinuousNumericField<Double> {
     }
 
     @Override
-    public boolean isValid(final Object element) {
-        if (!(element instanceof Double))
-            return false;
-        return super.isValid(element);
+    public boolean isValid() {
+        return super.isValid();
     }
 }

@@ -25,6 +25,13 @@ public class ExclusiveSelectorField<T> extends DataField<T> {
         this.originalSet = new ArrayList<>(set);
     }
 
+    /**
+     * Private no-args constructor for Gson
+     */
+    private ExclusiveSelectorField() {
+        originalSet = null;
+    }
+
     @NotNull
     @Override
     public T generate() {
@@ -45,10 +52,7 @@ public class ExclusiveSelectorField<T> extends DataField<T> {
     }
 
     @Override
-    public boolean isValid(final Object element) {
-        if (exclude != null && exclude.contains(element))
-            return false;
-
-        return originalSet.contains(element);
+    public boolean isValid() {
+        return originalSet != null;
     }
 }

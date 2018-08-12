@@ -18,6 +18,10 @@ public class ConstantField<T> extends DataField<T> {
         this.value = value;
     }
 
+    public ConstantField() {
+        this(null);
+    }
+
     @Nullable
     @Override
     public T generate() {
@@ -30,8 +34,8 @@ public class ConstantField<T> extends DataField<T> {
     }
 
     @Override
-    public boolean isValid(final Object element) {
-        return Objects.equals(value, element);
+    public boolean isValid() {
+        return true;
     }
 
     @Override

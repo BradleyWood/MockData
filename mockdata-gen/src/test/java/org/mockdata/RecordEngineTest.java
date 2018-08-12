@@ -38,30 +38,4 @@ public class RecordEngineTest {
             Assert.assertTrue((Integer) record.get(1) >= MINB && (Integer) record.get(1) <= MAXB);
         }
     }
-
-    @Test
-    public void testWriteRecord() throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream stream = new PrintStream(baos);
-        int numRecords = 10;
-
-        recordEngine.writeHeader(stream);
-        recordEngine.writeRecords(stream, numRecords);
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(baos.toByteArray())));
-        String header = br.readLine();
-        Assert.assertEquals("x,y,z", header);
-
-
-        List<DataField> fields = recordEngine.getDataFields();
-        for (int i = 0; i < numRecords; i++) {
-            String record = br.readLine();
-            String[] numbers = record.split(",");
-
-            for (int j = 0; j < numbers.length; j++) {
-                Assert.assertTrue(fields.get(j).isValid(Integer.parseInt(numbers[j])));
-            }
-        }
-        Assert.assertNull(br.readLine());
-    }
 }

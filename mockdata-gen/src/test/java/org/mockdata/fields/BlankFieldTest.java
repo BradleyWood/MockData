@@ -11,7 +11,7 @@ public class BlankFieldTest {
     public void generateTest() {
         BlankField bf = new BlankField();
         for (final String s : bf.stream().limit(10).collect(Collectors.toList())) {
-            Assert.assertTrue(bf.isValid(s));
+            Assert.assertEquals("", s);
         }
     }
 }
