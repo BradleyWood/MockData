@@ -1,12 +1,12 @@
 package org.mockdata.api.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.NotNull;
-import org.mockdata.api.generators.FieldGenerator;
+import org.mockdata.api.generators.Field;
 import org.mockdata.fields.DataField;
 
 import java.util.*;
@@ -15,30 +15,38 @@ import java.util.*;
 public class FieldConfig implements Verifiable {
 
     @SerializedName("type")
-    private String type;
+    private String type = null;
 
     @SerializedName("invalid_proportion")
-    private Double invalidProportion;
+    private double invalidProportion = 0.0;
 
     @SerializedName("independent")
-    private Boolean independent;
+    private boolean independent = false;
 
     @SerializedName("parameters")
     private Map<String, Object> parameters;
-
-    @Expose(serialize = false, deserialize = false)
-    private static @Getter @Setter FieldGenerator chain = FieldGenerator.getChain();
 
     public DataField instantiate() {
         if (!isValid())
             return null;
 
-        return chain.instantiate(type, getParameters());
+        final DataField field = Field.getField(type);
+
+        if (field == null)
+            return null;
+
+        if (parameters != null) {
+            final InstanceCreator<DataField> creator = t -> field;
+            final Gson gson = new GsonBuilder().registerTypeAdapter(DataField.class, creator).create();
+            gson.fromJson(gson.toJsonTree(parameters), field.getClass());
+        }
+
+        field.setIndependence(independent);
+
+        return field;
     }
 
-    @NotNull
-    public Double getInvalidProportion() {
-        if (invalidProportion == null) return 0.0;
+    public double getInvalidProportion() {
         return invalidProportion;
     }
 
@@ -48,9 +56,7 @@ public class FieldConfig implements Verifiable {
         return parameters;
     }
 
-    @NotNull
-    public Boolean isIndependent() {
-        if (independent == null) return false;
+    public boolean isIndependent() {
         return independent;
     }
 
@@ -58,5 +64,4 @@ public class FieldConfig implements Verifiable {
     public boolean isValid() {
         return type != null && getInvalidProportion() >= 0 && getInvalidProportion() <= 1;
     }
-
 }
